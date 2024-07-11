@@ -1,0 +1,22 @@
+library(dplyr)
+recode_function <- function(x) {
+  x <- ifelse(x == "Strongly disagree", 1, x)
+  x <- ifelse(x == "Disagree", 2, x)
+  x <- ifelse(x == "Somewhat disagree", 3, x)
+  x <- ifelse(x == "Neither agree nor disagree", 4, x)
+  x <- ifelse(x == "Somewhat agree", 5, x)
+  x <- ifelse(x == "Agree", 6, x)
+  x <- ifelse(x == "Strongly agree", 7, x)
+  return(as.numeric(x))
+}
+variables_to_recode <- c("JobComplexity_1", "JobComplexity_2", "JobComplexity_3", "JobComplexity_4",
+                         "InformationProcessin_1.1", "InformationProcessin_2.1", "InformationProcessin_3.1", "InformationProcessin_4.1",
+                         "ProblemSolving_1.1", "ProblemSolving_2.1", "ProblemSolving_3.1", "ProblemSolving_4.1",
+                         "SkillVariety_1", "SkillVariety_2", "SkillVariety_3", "SkillVariety_4",
+                         "Specialization_1", "Specialization_2", "Specialization_3", "Specialization_4",
+                         "PhysicalDemands_1", "PhysicalDemands_2", "PhysicalDemands_3",
+                         "WorkConditions_1", "WorkConditions_2", "WorkConditions_3", "WorkConditions_4", "WorkConditions_5",
+                         "Interpersonal.Confli_1", "Interpersonal.Confli_2", "Interpersonal.Confli_3", "Interpersonal.Confli_4",
+                         "Quantitative.Workloa_1", "Quantitative.Workloa_2", "Quantitative.Workloa_3", "Quantitative.Workloa_4")
+OCdata <- OCdata %>%
+  mutate_at(vars(variables_to_recode), recode_function)
